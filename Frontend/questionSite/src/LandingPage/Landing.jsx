@@ -5,6 +5,8 @@ export function Landing(){
     const [item , setItem] = useState("")
     const [count , setCount] = useState(0)
 
+    // this is the change
+
     const contentArray = ["The Mack Coding School" , "Here you will Learn" , "Here you will connect" , "And All Set"]
     
 
