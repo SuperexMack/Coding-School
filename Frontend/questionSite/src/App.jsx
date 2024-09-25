@@ -11,8 +11,8 @@ function App() {
     <>
     <BrowserRouter>
     <Routes>
-      <Route path='/' element={<Landing></Landing>}></Route>
-      <Route path='/mainpage' element={<Mainpage></Mainpage>}></Route>
+      <Route path='https://coding-school-200.vercel.app/' element={<Landing></Landing>}></Route>
+      <Route path='https://coding-school-200.vercel.app/mainpage' element={<Mainpage></Mainpage>}></Route>
     </Routes>
     </BrowserRouter>
     </>
