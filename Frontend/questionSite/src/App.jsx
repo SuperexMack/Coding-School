@@ -4,7 +4,6 @@ import { Landing } from './LandingPage/Landing';
 import { Mainpage } from './MainPage/MainPage';
 
 
-
 function App() {
 
   return (
