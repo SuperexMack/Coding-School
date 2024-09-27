@@ -22,6 +22,7 @@ model User{
 model Topics{
   id Int @unique @default(autoincrement())
   title String @unique
+  link String 
   questionNumber questions[]
 }
 

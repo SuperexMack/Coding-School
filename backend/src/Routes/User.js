@@ -3,19 +3,23 @@ const prisma = new PrismaClient()
 const jwt = require("jsonwebtoken")
 const zod = require("zod")
 const express = require("express")
+const path = require("path")
 const router = express.Router()
-const SAFE = "06062003"
+require("dotenv").config({ path: path.resolve(__dirname, "../prisma/.env") })
+
+const Secret_Code = process.env.Secret_Code
 
 const checkUser = zod.object({
-    userName : zod.string().email(),
+    userName : zod.string(),
     password : zod.string()
 })
 
 router.post("/userSignin" , async(req,res)=>{
-    let {suceess} = checkUser.safeParse(req.body)
-    if(!suceess){
+    let {success , error} = checkUser.safeParse(req.body)
+    if(!success){
         return res.json({
-            msg : "Enter a valid input"
+            msg : "Enter a valid input",
+            error : error.errors
         })
     }
 
@@ -35,12 +39,17 @@ router.post("/userSignin" , async(req,res)=>{
         }
 
         else {
-          await prisma.user.create({
-            userName : userName,
-            password : password
+          let userChecker = await prisma.user.create({
+            data:{
+                userName: userName,
+                password: password
+            }
+            
           })
-          
-          let userid = jwt.sign({checker} , SAFE)
+
+          let myChecker = userChecker.id
+          console.log("This is the id :" + myChecker)
+          let userid = jwt.sign({myChecker} , Secret_Code)
 
           res.json({
             token : userid,
@@ -51,9 +60,10 @@ router.post("/userSignin" , async(req,res)=>{
 
     }
 
-    catch{
+    catch(error){
         res.json({
-            msg : "Something went wrong please check it "
+            msg : "Something went wrong please check it ",
+            myerror : error
         })
     }
    
